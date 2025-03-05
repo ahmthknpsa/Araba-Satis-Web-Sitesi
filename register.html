@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Üye Ol</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: url('images/mavi.webp') no-repeat center center fixed;
+      background-size: cover;
+      flex-direction: column;
+    }
+
+    .home-link {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 1rem;
+    }
+
+    .home-link a {
+      color: #007BFF;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .home-link a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      display: flex;
+      width: 60%;
+      max-width: 900px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      margin-top: 80px;
+    }
+
+    .form-container {
+      flex: 1;
+      padding: 40px;
+      background: rgba(255, 255, 255, 0.9);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .form-container h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+      color: #333;
+    }
+
+    .form-container form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    input, button {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    input:focus {
+      border-color: #007BFF;
+      outline: none;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+
+    button {
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .error {
+      color: red;
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .info {
+      margin-top: 20px;
+      font-size: 0.9rem;
+      text-align: center;
+      color: #555;
+    }
+
+    .info a {
+      color: #007BFF;
+      text-decoration: none;
+    }
+
+    .info a:hover {
+      text-decoration: underline;
+    }
+
+    .image-container {
+      flex: 1;
+      background: url('images/side-image.jpg') no-repeat center center;
+      background-size: cover;
+    }
+
+    .back-button {
+      margin-top: 15px;
+      text-align: center;
+    }
+
+    .back-button a {
+      color: #007BFF;
+      text-decoration: none;
+      font-size: 1rem;
+    }
+
+    .back-button a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="home-link">
+    <a href="index.html">Anasayfaya Dön</a>
+  </div>
+  <div class="container">
+    <div class="form-container">
+      <h1>Kayıt Ol</h1>
+      <form id="registerForm">
+        <input type="text" id="username" name="username" placeholder="Kullanıcı Adı" required minlength="3" maxlength="20">
+        <input type="email" id="email" name="email" placeholder="E-Posta" required>
+        <input type="password" id="password" name="password" placeholder="Şifre" required minlength="8">
+        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Şifreyi Onayla" required>
+        <div class="error" id="errorMessage"></div>
+        <button type="submit">Kayıt Ol</button>
+      </form>
+      <div class="info">
+        Zaten bir hesabınız var mı? <a href="login.html">Giriş Yap</a>
+      </div>
+      <div class="back-button">
+        <a href="javascript:history.back()">Geri Dön</a>
+      </div>
+    </div>
+    <div class="image-container"></div>
+  </div>
+
+  <script>
+    document.getElementById("registerForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const username = document.getElementById("username").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const confirmPassword = document.getElementById("confirmPassword").value.trim();
+      const errorMessage = document.getElementById("errorMessage");
+
+      if (!username || !email || !password || !confirmPassword) {
+        errorMessage.textContent = "Tüm alanlar doldurulmalıdır!";
+        return;
+      }
+
+      if (username.length < 3 || username.length > 20) {
+        errorMessage.textContent = "Kullanıcı adı 3-20 karakter arasında olmalıdır.";
+        return;
+      }
+
+      if (password.length < 8) {
+        errorMessage.textContent = "Şifre en az 8 karakter olmalıdır.";
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        errorMessage.textContent = "Şifreler eşleşmiyor!";
+        return;
+      }
+
+      errorMessage.textContent = ""; // Hata yoksa temizle
+
+      try {
+        const response = await fetch("http://localhost:5024/api/auth/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username, email, password }),
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          alert("Üyelik başarılı! Şimdi giriş yapabilirsiniz.");
+          window.location.href = "login.html";
+        } else {
+          errorMessage.textContent = "Üyelik başarısız: " + (result.error || "Bilinmeyen bir hata.");
+        }
+      } catch (error) {
+        console.error("Üyelik hatası:", error);
+        errorMessage.textContent = "Bir hata oluştu. Lütfen tekrar deneyin.";
+      }
+    });
+  </script>
+</body>
+</html>

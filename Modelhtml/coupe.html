@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coupe Araçlar</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+    />
+    <style>
+      body {
+        font-family: "Roboto", sans-serif;
+        margin: 0;
+        background-color: #f8f9fa;
+        color: #343a40;
+        line-height: 1.6;
+      }
+
+      .navbar {
+        background: linear-gradient(45deg, #7b8a7a, #080808);
+        color: white;
+        box-shadow: 0 4px 8px rgba(15, 15, 15, 0.2);
+      }
+
+      .navbar a {
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+      }
+
+      .navbar a:hover {
+        color: #f8f9fa;
+      }
+
+      .hero {
+        background: url("../../images/cop.jpg") no-repeat center
+          center/cover;
+        height: 600px;
+        color: white;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+
+      .hero h1 {
+        font-size: 4rem;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+      }
+
+      .hero p {
+        font-size: 1.5rem;
+        margin-top: 20px;
+      }
+
+      .filter-section {
+        margin: 20px 0;
+        text-align: center;
+      }
+
+      .filter-section select {
+        padding: 10px;
+        margin: 5px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 1rem;
+      }
+
+      .car-item {
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .car-item:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      .car-item img {
+        width: 100%;
+        border-radius: 10px;
+        margin-bottom: 15px;
+      }
+
+      footer {
+        background-color: #3d2d2d;
+        color: white;
+        text-align: center;
+        padding: 20px;
+      }
+
+      footer a {
+        color: #f8f9fa;
+        text-decoration: underline;
+      }
+
+      @media (max-width: 768px) {
+        .hero h1 {
+          font-size: 3rem;
+        }
+
+        .hero p {
+          font-size: 1.2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg">
+      <div class="container">
+        <a class="navbar-brand" href="#">Araç Portalı</a>
+        <div class="collapse navbar-collapse">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#">Anasayfa</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Hakkımızda</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">İletişim</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="hero" style="background-image: url('../images/cop.jpg')">
+      <h1>Coupe Araçlar</h1>
+      <p>Modern tasarım ve üstün performans bir arada</p>
+    </div>
+
+    <div class="container">
+      <div class="row" id="car-list">
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="car-item" data-brand="BMW" data-price="high">
+            <img src="../../images/m4.jpg" alt="BMW M4" />
+            <h3>BMW M4</h3>
+            <p><strong>Fiyat:</strong> 2.000.000 TL</p>
+            <p><strong>Marka:</strong> BMW</p>
+            <p><strong>Model:</strong> M4</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="car-item" data-brand="Audi" data-price="medium">
+            <img src="../../images/rs.jpg" alt="Audi RS5" />
+            <h3>Audi RS5</h3>
+            <p><strong>Fiyat:</strong> 1.800.000 TL</p>
+            <p><strong>Marka:</strong> Audi</p>
+            <p><strong>Model:</strong> RS5</p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="car-item" data-brand="Mercedes" data-price="high">
+            <img src="../images/merso.jpg" alt="Mercedes AMG" />
+            <h3>Mercedes AMG</h3>
+            <p><strong>Fiyat:</strong> 2.500.000 TL</p>
+            <p><strong>Marka:</strong> Mercedes</p>
+            <p><strong>Model:</strong> AMG</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p>
+        &copy; 2024 Araç Portalı. Tüm hakları saklıdır.
+        <a href="#">Gizlilik Politikası</a>
+      </p>
+    </footer>
+
+    <script>
+      document
+        .getElementById("apply-filters")
+        .addEventListener("click", function () {
+          const selectedBrand = document.getElementById("filter-brand").value;
+          const selectedPrice = document.getElementById("filter-price").value;
+
+          const cars = document.querySelectorAll(".car-item");
+          cars.forEach((car) => {
+            const carBrand = car.getAttribute("data-brand");
+            const carPrice = car.getAttribute("data-price");
+
+            let brandMatch = !selectedBrand || carBrand === selectedBrand;
+            let priceMatch =
+              !selectedPrice ||
+              (selectedPrice === "low" && carPrice === "low") ||
+              (selectedPrice === "medium" && carPrice === "medium") ||
+              (selectedPrice === "high" && carPrice === "high");
+
+            if (brandMatch && priceMatch) {
+              car.parentElement.style.display = "block";
+            } else {
+              car.parentElement.style.display = "none";
+            }
+          });
+        });
+    </script>
+  </body>
+</html>

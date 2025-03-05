@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>İlan Ver</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        margin: 0;
+        padding: 20px;
+
+        background: url("images/coklu.jpg") no-repeat center center fixed;
+        background-size: cover;
+        flex-direction: column;
+      }
+      form {
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        max-width: 800px;
+        margin: auto;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+      input,
+      textarea,
+      button {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 1rem;
+      }
+      button {
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #45a049;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 style="text-align: center; color: rgb(253, 253, 253)">İlan Ver</h1>
+
+    <form id="addCarForm">
+      <!-- Ürün Bilgileri -->
+      <label for="urunAdi">Ürün Adı:</label>
+      <input type="text" id="urunAdi" name="urunAdi" required />
+
+      <label for="hasarBilgisi">Hasar Bilgisi:</label>
+      <input type="text" id="hasarBilgisi" name="hasarBilgisi" />
+
+      <label for="saticiBilgileri">Satıcı Bilgileri:</label>
+      <textarea id="saticiBilgileri" name="saticiBilgileri" rows="3"></textarea>
+
+      <label for="aciklama">Açıklama:</label>
+      <textarea id="aciklama" name="aciklama" rows="3"></textarea>
+
+      <label for="telefonNumarasi">Telefon Numarası:</label>
+      <input type="text" id="telefonNumarasi" name="telefonNumarasi" />
+
+      <label for="fiyat">Fiyat:</label>
+      <input type="text" id="fiyat" name="fiyat" required />
+
+      <label for="ilanNo">İlan No:</label>
+      <input type="text" id="ilanNo" name="ilanNo" />
+
+      <label for="ilanTarihi">İlan Tarihi:</label>
+      <input type="text" id="ilanTarihi" name="ilanTarihi" />
+
+      <label for="marka">Marka:</label>
+      <input type="text" id="marka" name="marka" required />
+
+      <label for="seri">Seri:</label>
+      <input type="text" id="seri" name="seri" />
+
+      <label for="model">Model:</label>
+      <input type="text" id="model" name="model" required />
+
+      <label for="yil">Yıl:</label>
+      <input type="text" id="yil" name="yil" />
+
+      <label for="kilometre">Kilometre:</label>
+      <input type="text" id="kilometre" name="kilometre" />
+
+      <label for="vitesTipi">Vites Tipi:</label>
+      <input type="text" id="vitesTipi" name="vitesTipi" />
+
+      <label for="yakitTipi">Yakıt Tipi:</label>
+      <input type="text" id="yakitTipi" name="yakitTipi" />
+
+      <label for="kasaTipi">Kasa Tipi:</label>
+      <input type="text" id="kasaTipi" name="kasaTipi" />
+
+      <label for="renk">Renk:</label>
+      <input type="text" id="renk" name="renk" />
+
+      <label for="motorHacmi">Motor Hacmi:</label>
+      <input type="text" id="motorHacmi" name="motorHacmi" />
+
+      <label for="motorGucu">Motor Gücü:</label>
+      <input type="text" id="motorGucu" name="motorGucu" />
+
+      <label for="cekis">Çekiş:</label>
+      <input type="text" id="cekis" name="cekis" />
+
+      <label for="aracDurumu">Araç Durumu:</label>
+      <input type="text" id="aracDurumu" name="aracDurumu" />
+
+      <label for="ortYakitTuketimi">Ort. Yakıt Tüketimi:</label>
+      <input type="text" id="ortYakitTuketimi" name="ortYakitTuketimi" />
+
+      <label for="yakitDeposu">Yakıt Deposu:</label>
+      <input type="text" id="yakitDeposu" name="yakitDeposu" />
+
+      <label for="boyaDegisen">Boya/Değişen:</label>
+      <input type="text" id="boyaDegisen" name="boyaDegisen" />
+
+      <label for="takasaUygun">Takasa Uygun:</label>
+      <input type="text" id="takasaUygun" name="takasaUygun" />
+
+      <label for="kimden">Kimden:</label>
+      <input type="text" id="kimden" name="kimden" />
+
+      <label for="uretimYili">Üretim Yılı:</label>
+      <input type="text" id="uretimYili" name="uretimYili" />
+
+      <label for="garantiDurumu">Garanti Durumu:</label>
+      <input type="text" id="garantiDurumu" name="garantiDurumu" />
+
+      <label for="aracTuru">Araç Türü:</label>
+      <input type="text" id="aracTuru" name="aracTuru" />
+
+      <label for="ilkSahip">İlk Sahip:</label>
+      <input type="text" id="ilkSahip" name="ilkSahip" />
+
+      <label for="sinifi">Sınıfı:</label>
+      <input type="text" id="sinifi" name="sinifi" />
+
+      <label for="plakaUyruğu">Plaka Uyruğu:</label>
+      <input type="text" id="plakaUyruğu" name="plakaUyruğu" />
+
+      <label for="yillikMTV">Yıllık MTV:</label>
+      <input type="text" id="yillikMTV" name="yillikMTV" />
+
+      <label for="sanziman">Şanzıman:</label>
+      <input type="text" id="sanziman" name="sanziman" />
+
+      <label for="ortalamaKasko">Ortalama Kasko:</label>
+      <input type="text" id="ortalamaKasko" name="ortalamaKasko" />
+
+      <label for="ortalamaTrafikSigortasi">Ortalama Trafik Sigortası:</label>
+      <input
+        type="text"
+        id="ortalamaTrafikSigortasi"
+        name="ortalamaTrafikSigortasi"
+      />
+
+      <label for="silindirSayisi">Silindir Sayısı:</label>
+      <input type="text" id="silindirSayisi" name="silindirSayisi" />
+
+      <label for="tork">Tork:</label>
+      <input type="text" id="tork" name="tork" />
+
+      <label for="hizlanma">Hızlanma (0-100):</label>
+      <input type="text" id="hizlanma" name="hizlanma" />
+
+      <label for="maksimumHiz">Maksimum Hız:</label>
+      <input type="text" id="maksimumHiz" name="maksimumHiz" />
+
+      <label for="sehirIciTuketim">Şehir İçi Yakıt Tüketimi:</label>
+      <input type="text" id="sehirIciTuketim" name="sehirIciTuketim" />
+
+      <label for="sehirDisiTuketim">Şehir Dışı Yakıt Tüketimi:</label>
+      <input type="text" id="sehirDisiTuketim" name="sehirDisiTuketim" />
+
+      <label for="uzunluk">Uzunluk:</label>
+      <input type="text" id="uzunluk" name="uzunluk" />
+
+      <label for="genislik">Genişlik:</label>
+      <input type="text" id="genislik" name="genislik" />
+
+      <label for="yukseklik">Yükseklik:</label>
+      <input type="text" id="yukseklik" name="yukseklik" />
+
+      <label for="agirlik">Ağırlık:</label>
+      <input type="text" id="agirlik" name="agirlik" />
+
+      <label for="bosAgirlik">Boş Ağırlık:</label>
+      <input type="text" id="bosAgirlik" name="bosAgirlik" />
+
+      <label for="koltukSayisi">Koltuk Sayısı:</label>
+      <input type="text" id="koltukSayisi" name="koltukSayisi" />
+
+      <label for="bagajHacmi">Bagaj Hacmi:</label>
+      <input type="text" id="bagajHacmi" name="bagajHacmi" />
+
+      <label for="onLastik">Ön Lastik:</label>
+      <input type="text" id="onLastik" name="onLastik" />
+
+      <label for="aksAraligi">Aks Aralığı:</label>
+      <input type="text" id="aksAraligi" name="aksAraligi" />
+
+      <label for="resimURL">Resim URL:</label>
+      <input type="text" id="resimURL" name="resimURL" />
+
+      <label for="adres">Adres:</label>
+      <textarea id="adres" name="adres" rows="3"></textarea>
+
+      <button type="submit">İlan Ver</button>
+    </form>
+
+    <script>
+      document
+        .getElementById("addCarForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const formData = new FormData(e.target);
+          const data = Object.fromEntries(formData.entries());
+
+          try {
+            const response = await fetch(
+              "http://localhost:5024/api/pendingCars",
+              {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data),
+              }
+            );
+
+            if (response.ok) {
+              const result = await response.json();
+              alert("İlan başarıyla gönderildi, admin onayı bekliyor.");
+              console.log("Gönderilen İlan:", result.data);
+            } else {
+              const error = await response.json();
+              alert("Bir hata oluştu: " + error.error);
+            }
+          } catch (error) {
+            console.error("Bir hata oluştu:", error);
+            alert("Bir hata oluştu. Lütfen tekrar deneyin.");
+          }
+        });
+    </script>
+  </body>
+</html>

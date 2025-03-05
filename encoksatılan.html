@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>En Çok Satılan Araçlar</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        font-family: "Roboto", sans-serif;
+        background-color: #f9f9f9;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: auto;
+        padding: 20px;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .header h1 {
+        font-size: 2rem;
+        color: #333;
+      }
+
+      .car-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 15px;
+      }
+
+      .car-card {
+        background: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease;
+      }
+
+      .car-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .car-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+      }
+
+      .car-info {
+        padding: 15px;
+      }
+
+      .car-title {
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-bottom: 8px;
+        color: #333;
+      }
+
+      .car-details {
+        font-size: 0.9rem;
+        color: #666;
+        line-height: 1.6;
+      }
+
+      .car-price {
+        margin-top: 10px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        color: #4caf50;
+      }
+
+      .btn-details {
+        display: block;
+        text-align: center;
+        margin-top: 15px;
+        padding: 10px;
+        background-color: #4caf50;
+        color: #fff;
+        border-radius: 4px;
+        text-decoration: none;
+        transition: background 0.3s ease;
+      }
+
+      .btn-details:hover {
+        background-color: #45a049;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>En Çok Satılan Araçlar</h1>
+      </div>
+      <div id="car-list" class="car-list">Yükleniyor...</div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", async () => {
+        const carList = document.getElementById("car-list");
+
+        // En çok satılan araçları getiren API'yi çağır
+        async function fetchTopSellingCars() {
+          carList.innerHTML = "<p>Yükleniyor...</p>";
+
+          try {
+            const response = await fetch(
+              "http://localhost:5024/api/cars/filter?sortBy=salesCount&order=desc"
+            );
+            const data = await response.json();
+
+            carList.innerHTML = data
+              .map(
+                (car) => `
+            <div class="car-card">
+              <img src="images/default-car.jpg" class="car-image" alt="${
+                car.Model || "Araç"
+              }">
+              <div class="car-info">
+                <h2 class="car-title">${car.Model || "Bilinmeyen Model"}</h2>
+                <p class="car-details">
+                  Marka: ${car.Marka || "Bilinmiyor"}<br>
+                  Yıl: ${car["Yıl"] || "Bilinmiyor"}<br>
+                  Fiyat: ${car.Fiyat || "Bilinmiyor"} TL<br>
+                  Satış Adedi: ${car.salesCount || "Bilinmiyor"}
+                </p>
+                <a href="detay.html?id=${
+                  car._id
+                }" class="btn-details">Detayları Gör</a>
+              </div>
+            </div>
+          `
+              )
+              .join("");
+          } catch (error) {
+            console.error("Hata:", error);
+            carList.innerHTML = "<p>Veriler yüklenirken bir hata oluştu.</p>";
+          }
+        }
+
+        fetchTopSellingCars();
+      });
+    </script>
+  </body>
+</html>

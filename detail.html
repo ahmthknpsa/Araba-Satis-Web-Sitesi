@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Araç Detayları</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <style>
+      /* Genel stil */
+      body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #333;
+        padding: 1rem;
+      }
+
+      .navbar a {
+        color: white;
+        text-decoration: none;
+        margin: 0 1rem;
+      }
+
+      .navbar a:hover {
+        text-decoration: underline;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      .car-detail {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .car-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 15px;
+      }
+
+      .car-images {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+      }
+
+      .car-images img {
+        width: 48%;
+        height: auto;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .car-details {
+        margin-top: 30px;
+      }
+
+      .car-details h3 {
+        font-size: 1.5rem;
+        color: #333;
+        margin-bottom: 10px;
+      }
+
+      .car-details p {
+        font-size: 1.1rem;
+        color: #666;
+        margin-bottom: 10px;
+      }
+
+      .car-price {
+        font-size: 1.5rem;
+        color: #4caf50;
+        font-weight: bold;
+        margin-top: 20px;
+      }
+
+      .btn-back {
+        padding: 12px 20px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-align: center;
+        font-size: 1rem;
+        transition: background 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+      }
+
+      .btn-back:hover {
+        background-color: #45a049;
+      }
+
+      .btn-contact {
+        padding: 12px 20px;
+        background-color: #e84242;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-align: center;
+        font-size: 1rem;
+        transition: background 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+        margin-top: 20px;
+      }
+
+      .btn-contact:hover {
+        background-color: #e64a19;
+      }
+
+      /* Popup form */
+      #popup-form {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .popup-content {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        width: 400px;
+        text-align: center;
+      }
+
+      textarea {
+        width: 100%;
+        height: 60px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        resize: none;
+      }
+
+      #messages-container {
+        background-color: black;
+        color: white;
+        border: 1px solid #ccc;
+        padding: 10px;
+        max-height: 200px;
+        overflow-y: auto;
+        margin-bottom: 10px;
+      }
+
+      .form-container {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        width: 50%;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .form-container h3 {
+        margin-bottom: 20px;
+        color: #333;
+      }
+
+      .form-container input,
+      .form-container textarea,
+      .form-container button {
+        width: 100%;
+        padding: 12px;
+        margin: 10px 0;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        font-size: 1rem;
+      }
+
+      .form-container button {
+        background-color: #4caf50;
+        color: white;
+        cursor: pointer;
+      }
+
+      .form-container button:hover {
+        background-color: #45a049;
+      }
+
+      .form-container .close-btn {
+        background-color: #e84242;
+        margin-top: 10px;
+      }
+
+      .form-container .close-btn:hover {
+        background-color: #e84242;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <div class="navbar">
+      <div class="logo">
+        <a href="index.html" style="font-weight: bold; font-size: 1.2rem;">Car Bench</a>
+      </div>
+      <div class="menu">
+        <a href="index.html" class="active">Anasayfa</a>
+        <a href="iletişim.html" class="active">İletişim</a>
+        <a href="hakkında.html" class="active">Hakkında</a>
+        <a href="Aracrehber.html" class="active">Araç Alım Rehberi</a>
+      </div>
+      <div>
+        <button id="toggle-messages-button" style="background-color: rgb(37, 35, 35); color: rgb(255, 255, 255); border: 1px solid rgb(77, 77, 77);">
+          Mesajları Görüntüle
+        </button>
+        <div id="messages-container" style="display: none"></div>
+      </div>
+      
+    </div>
+
+    <div class="container">
+      <div class="car-detail">
+        <!-- Araç Başlık ve Resimleri -->
+        <h1 class="car-title" id="car-title">Araç Başlığı</h1>
+
+        <div class="car-images" id="car-images">
+          <img src="" alt="Araç Resmi" id="car-image" />
+          
+        </div>
+
+        <!-- Araç Detayları -->
+        <div class="car-details">
+          <h3>Genel Bilgiler</h3>
+          <p><strong>Marka:</strong> <span id="car-brand">Marka</span></p>
+          <p><strong>Seri:</strong> <span id="car-series">Seri</span></p>
+          <p><strong>Model:</strong> <span id="car-model">Model</span></p>
+          <p><strong>Yıl:</strong> <span id="car-year">Yıl</span></p>
+          <p>
+            <strong>Kilometre:</strong> <span id="car-mileage">Kilometre</span>
+          </p>
+          <p>
+            <strong>Vites Tipi:</strong>
+            <span id="car-transmission">Vites Tipi</span>
+          </p>
+          <p>
+            <strong>Yakıt Tipi:</strong> <span id="car-fuel">Yakıt Tipi</span>
+          </p>
+          <p><strong>Renk:</strong> <span id="car-color">Renk</span></p>
+          <p>
+            <strong>Motor Hacmi:</strong>
+            <span id="car-engine">Motor Hacmi</span>
+          </p>
+          <p>
+            <strong>Motor Gücü:</strong> <span id="car-power">Motor Gücü</span>
+          </p>
+          <p><strong>Çekiş:</strong> <span id="car-drive">Çekiş</span></p>
+          <p><strong>Ağırlık:</strong> <span id="car-weight">Ağırlık</span></p>
+          <p>
+            <strong>Bagaj Hacmi:</strong>
+            <span id="car-trunk">Bagaj Hacmi</span>
+          </p>
+          <p>
+            <strong>Plaka Uyruğu:</strong>
+            <span id="car-plate">Plaka Uyruğu</span>
+          </p>
+          <p>
+            <strong>İlan Tarihi:</strong> <span id="car-date">İlan Tarihi</span>
+          </p>
+          <p>
+            <strong>Açıklama:</strong>
+            <span id="car-description">Açıklama</span>
+          </p>
+
+          <h3>Diğer Özellikler</h3>
+          <p>
+            <strong>Hasar Bilgisi:</strong>
+            <span id="car-damage">Hasar Bilgisi</span>
+          </p>
+          <p>
+            <strong>İlan Numarası:</strong>
+            <span id="car-listing-no">İlan No</span>
+          </p>
+          <p>
+            <strong>Garanti Durumu:</strong>
+            <span id="car-warranty">Garanti Durumu</span>
+          </p>
+        </div>
+
+        <!-- Donanım -->
+        <div class="car-details">
+          <h3>Donanım</h3>
+          <p>
+            <strong>Araç Türü:</strong> <span id="car-type">Araç Türü</span>
+          </p>
+          <p>
+            <strong>İlk Sahibi Mi:</strong>
+            <span id="car-first-owner">Aracın ilk sahibiyim</span>
+          </p>
+          <p><strong>Sınıfı:</strong> <span id="car-class">Sınıfı</span></p>
+          <p>
+            <strong>Plaka Uyruğu:</strong>
+            <span id="car-plate-country">Plaka Uyruğu</span>
+          </p>
+          <p>
+            <strong>Şanzıman:</strong>
+            <span id="car-transmission-type">Şanzıman</span>
+          </p>
+          <p>
+            <strong>Ortalama Kasko:</strong>
+            <span id="car-insurance">Ortalama Kasko</span>
+          </p>
+          <p>
+            <strong>Ortalama Trafik Sigortası:</strong>
+            <span id="car-traffic-insurance">Ortalama Trafik Sigortası</span>
+          </p>
+          <p>
+            <strong>Silindir Sayısı:</strong>
+            <span id="car-cylinder">Silindir Sayısı</span>
+          </p>
+          <p><strong>Tork:</strong> <span id="car-torque">Tork</span></p>
+          <p>
+            <strong>Maksimum Güç:</strong>
+            <span id="car-max-power">Maksimum Güç</span>
+          </p>
+          <p>
+            <strong>Hızlanma (0-100):</strong>
+            <span id="car-acceleration">Hızlanma</span>
+          </p>
+        </div>
+
+        <!-- Fiyat ve Takasa Uygunluk -->
+        <div class="car-price" id="car-price">Fiyat:</div>
+        <p class="car-exchange" id="car-exchange">Takasa Uygun:</p>
+
+        <!-- İletişim Butonu -->
+        <button class="btn-contact" onclick="openPopup()">İletişime Geç</button>
+
+        <p>Telefon: <span id="car-phone">Telefon Numarası</span></p>
+
+        <!-- Geri Dön Butonu -->
+        <a href="javascript:history.back()" class="btn-back">Geri Dön</a>
+      </div>
+    </div>
+
+
+
+
+
+    <!-- Popup Form -->
+    <!-- Mesaj Gönderme ve Görüntüleme Pop-Up -->
+    <div id="popup-form" style="display: none">
+      <div class="popup-content">
+        <h3>Mesajlaşma</h3>
+
+        <!-- Önceki Mesajları Görüntüleme Alanı -->
+        <button onclick="fetchMessages()">Mesajları Görüntüle</button>
+        <div
+          id="messages-container"
+          style="
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-top: 10px;
+            max-height: 200px;
+            overflow-y: auto;
+          "
+        >
+          <!-- Mesajlar burada gösterilecek -->
+        </div>
+        <input
+          type="hidden"
+          id="receiver-id"
+          value="63c1f5e5e547f9b1fc13a4a2"
+        />
+        <!-- Alıcı ID -->
+        <!-- Mesaj Gönderme Formu -->
+        <textarea
+          id="message-input"
+          placeholder="Mesajınızı buraya yazın..."
+          style="width: 100%; margin-top: 10px"
+        ></textarea>
+        <button onclick="sendMessage()">Mesaj Gönder</button>
+        <button onclick="closePopup()">Kapat</button>
+      </div>
+    </div>
+
+    <script>
+      function openPopup() {
+        const token = localStorage.getItem("userToken"); // localStorage'dan token alınıyor
+
+        if (!token) {
+          alert("Mesaj göndermek için giriş yapmanız gerekiyor.");
+          window.location.href = "login.html"; // Kullanıcı giriş sayfasına yönlendiriliyor
+          return;
+        }
+
+        document.getElementById("popup-form").style.display = "flex";
+      }
+
+      function closePopup() {
+        document.getElementById("popup-form").style.display = "none";
+      }
+
+      // Mesaj Gönderme İşlevi
+      async function sendMessage() {
+        const receiver = document.getElementById("receiver-id").value;
+        const content = document.getElementById("message-input").value.trim();
+
+        if (!receiver || !content) {
+          alert("Lütfen mesajınızı yazın.");
+          return;
+        }
+
+        const token = localStorage.getItem("userToken");
+
+        if (!token) {
+          alert("Mesaj göndermek için giriş yapmanız gerekiyor.");
+          window.location.href = "login.html";
+          return;
+        }
+
+        try {
+          const response = await fetch(
+            "http://localhost:5024/api/messages/send",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+              body: JSON.stringify({ receiver, content }),
+            }
+          );
+
+          if (response.status === 401) {
+            alert("Yetkilendirme hatası. Lütfen tekrar giriş yapın.");
+            localStorage.removeItem("userToken");
+            window.location.href = "login.html";
+            return;
+          }
+
+          const result = await response.json();
+
+          if (response.ok) {
+            alert("Mesaj gönderildi!");
+            document.getElementById("message-input").value = "";
+          } else {
+            alert("Mesaj gönderilemedi: " + result.error);
+          }
+        } catch (error) {
+          console.error("Mesaj gönderme hatası:", error);
+          alert("Bir hata oluştu. Lütfen tekrar deneyin.");
+        }
+      }
+
+      // Mesajlar kısmını açıp kapama fonksiyonu
+      async function toggleMessages() {
+        const container = document.getElementById("messages-container");
+        const isHidden = container.style.display === "none";
+
+        if (isHidden) {
+          // Mesajlar görünmüyorsa, göster ve mesajları getir
+          container.style.display = "block";
+          await fetchMessages();
+        } else {
+          // Mesajlar görünüyorsa, gizle
+          container.style.display = "none";
+        }
+      }
+
+      // Mesajları Getirme İşlevi
+      async function fetchMessages() {
+        const token = localStorage.getItem("userToken");
+        
+
+        if (!token) {
+          alert("Mesajları görüntülemek için giriş yapmanız gerekiyor.");
+          window.location.href = "login.html"; // Kullanıcıyı giriş sayfasına yönlendir
+          return;
+        }
+
+        try {
+          const response = await fetch("http://localhost:5024/api/messages", {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+
+          if (response.status === 401) {
+            alert("Yetkilendirme hatası. Lütfen tekrar giriş yapın.");
+            localStorage.removeItem("userToken");
+            window.location.href = "login.html"; // Giriş sayfasına yönlendir
+            return;
+          }
+
+          const result = await response.json();
+          if (response.ok) {
+            displayMessages(result.data);
+          } else {
+            alert("Mesajlar alınırken bir hata oluştu: " + result.error);
+          }
+        } catch (error) {
+          console.error("Mesajlar alınırken hata:", error);
+          alert("Bir hata oluştu. Lütfen tekrar deneyin.");
+        }
+      }
+
+      // Mesajları Görüntüleme
+      function displayMessages(messages) {
+        const container = document.getElementById("messages-container");
+        container.innerHTML = ""; // Önceki mesajları temizle
+
+        if (messages.length === 0) {
+          container.textContent = "Hiç mesajınız bulunmuyor.";
+          return;
+        }
+
+        messages.forEach((message) => {
+          const senderUsername =
+            message.sender?.username || "Bilinmeyen Gönderen";
+          const receiverUsername =
+            message.receiver?.username || "Bilinmeyen Alıcı";
+
+          const messageDiv = document.createElement("div");
+          messageDiv.style.border = "1px solid #ddd";
+          messageDiv.style.margin = "10px 0";
+          messageDiv.style.padding = "10px";
+          messageDiv.innerHTML = `
+            <strong>Gönderen:</strong> ${senderUsername} <br>
+            <strong>Alıcı:</strong> ${receiverUsername} <br>
+            <strong>Mesaj:</strong> ${message.content} <br>
+            <small>${new Date(message.createdAt).toLocaleString()}</small>
+            `;
+          container.appendChild(messageDiv);
+        });
+      }
+
+      // "Mesajları Görüntüle" düğmesine tıklayınca mesajları getir
+      document
+        .getElementById("toggle-messages-button")
+        .addEventListener("click", toggleMessages);
+
+      // Araç detaylarını al
+      document.addEventListener("DOMContentLoaded", async function () {
+        const carId = localStorage.getItem("selectedCarId");
+
+        if (!carId) {
+          alert("Seçilen araç ID'si bulunamadı. Lütfen bir araç seçin.");
+          return;
+        }
+
+        const carTitle = document.getElementById("car-title");
+        const carImage = document.getElementById("car-image");
+       // const carImage2 = document.getElementById("car-image-2");
+        const carBrand = document.getElementById("car-brand");
+        const carSeries = document.getElementById("car-series");
+        const carModel = document.getElementById("car-model");
+        const carYear = document.getElementById("car-year");
+        const carMileage = document.getElementById("car-mileage");
+        const carFuel = document.getElementById("car-fuel");
+        const carTransmission = document.getElementById("car-transmission");
+        const carColor = document.getElementById("car-color");
+        const carEngine = document.getElementById("car-engine");
+        const carPower = document.getElementById("car-power");
+        const carDrive = document.getElementById("car-drive");
+        const carWeight = document.getElementById("car-weight");
+        const carTrunk = document.getElementById("car-trunk");
+        const carPlate = document.getElementById("car-plate");
+        const carDate = document.getElementById("car-date");
+        const carDescription = document.getElementById("car-description");
+        const carPrice = document.getElementById("car-price");
+        const carExchange = document.getElementById("car-exchange");
+        const carPhone = document.getElementById("car-phone");
+        const carType = document.getElementById("car-type");
+        const carFirstOwner = document.getElementById("car-first-owner");
+        const carClass = document.getElementById("car-class");
+        const carPlateCountry = document.getElementById("car-plate-country");
+        const carTransmissionType = document.getElementById(
+          "car-transmission-type"
+        );
+        const carInsurance = document.getElementById("car-insurance");
+        const carTrafficInsurance = document.getElementById(
+          "car-traffic-insurance"
+        );
+        const carCylinder = document.getElementById("car-cylinder");
+        const carTorque = document.getElementById("car-torque");
+        const carMaxPower = document.getElementById("car-max-power");
+        const carAcceleration = document.getElementById("car-acceleration");
+
+        function setData(element, value) {
+          if (value) {
+            element.textContent = value;
+            element.style.display = "block";
+          } else {
+            element.style.display = "none";
+          }
+        }
+
+        function setImageData(imageElement, src) {
+          if (src) {
+            imageElement.src = src;
+            imageElement.style.display = "block";
+          } else {
+            imageElement.style.display = "none";
+          }
+        }
+
+        try {
+          const response = await fetch(
+            `http://localhost:5024/api/cars/${carId}`
+          );
+
+          if (!response.ok) {
+            throw new Error(
+              `API Hatası: ${response.status} - ${response.statusText}`
+            );
+          }
+
+          const car = await response.json(); // Tekil araç döner
+          console.log("Araç Detayları:", car);
+
+          if (!car) {
+            console.error("Araç bulunamadı.");
+            alert("Araç bulunamadı.");
+            return;
+          }
+
+          // Veri kontrolü ve ayarlama
+          setData(carTitle, car["Ürün Adı"]);
+          setImageData(carImage, car["Resim URL"]);
+          setData(carBrand, car["Marka"]);
+          setData(carSeries, car["Seri"]);
+          setData(carModel, car["Model"]);
+          setData(carYear, car["Yıl"]);
+          setData(carMileage, car["Kilometre"]);
+          setData(carFuel, car["Yakıt Tipi"]);
+          setData(carTransmission, car["Vites Tipi"]);
+          setData(carColor, car["Renk"]);
+          setData(carEngine, car["Motor Hacmi"]);
+          setData(carPower, car["Motor Gücü"]);
+          setData(carDrive, car["Çekiş"]);
+          setData(carWeight, car["Ağırlık"]);
+          setData(carTrunk, car["Bagaj Hacmi"]);
+          setData(carPlate, car["Plaka Uyruğu"]);
+          setData(carDate, car["İlan Tarihi"]);
+          setData(carDescription, car["Açıklama"]);
+          setData(carPrice, car["Fiyat"]);
+          setData(carExchange, car["Takasa Uygun"]);
+          setData(carPhone, car["Telefon Numarası"]);
+          setData(carType, car["Araç Türü"]);
+          setData(carFirstOwner, car["Aracın ilk sahibiyim"]);
+          setData(carClass, car["Sınıfı"]);
+          setData(carPlateCountry, car["Plaka Uyruğu"]);
+          setData(carTransmissionType, car["Şanzıman"]);
+          setData(carInsurance, car["Ortalama Kasko"]);
+          setData(carTrafficInsurance, car["Ortalama Trafik Sigortası"]);
+          setData(carCylinder, car["Silindir Sayısı"]);
+          setData(carTorque, car["Tork"]);
+          setData(carMaxPower, car["Maksimum Güç"]);
+          setData(carAcceleration, car["Hızlanma (0-100)"]);
+        } catch (error) {
+          console.error("Hata oluştu:", error);
+          alert("Bir hata oluştu, lütfen tekrar deneyin.");
+        }
+      });
+    </script>
+    <style>
+      /* Chatbot Genel */
+      #chatbot-widget {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1000;
+        
+        
+        
+      }
+
+      /* Chatbot Başlatma Butonu */
+      .chatbot-toggle {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 50px;
+        padding: 15px 20px;
+        font-size: 0.9rem;
+        cursor: pointer;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease;
+        margin-left: 5%;
+        
+      }
+
+      .chatbot-toggle:hover {
+        background-color: #0056b3;
+        
+        
+      }
+
+      /* Chatbot Mesaj Penceresi */
+      .chatbot-window {
+        position: fixed;
+        bottom: 80px;
+        right: 400px;
+        width: 400px;
+        height: 500px;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+        
+      }
+
+      .chatbot-header {
+        background-color: #007bff;
+        color: white;
+        padding: 15px 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: medium;
+        
+        
+      }
+
+      .chatbot-messages {
+        flex: 1;
+        padding: 15px;
+        overflow-y: auto;
+        font-size: 1.1rem;
+        border-bottom: 1px solid #ccc;
+      }
+
+      .chatbot-messages .user {
+        text-align: right;
+        color: blue;
+        margin: 5px 0;
+        
+      }
+
+      .chatbot-messages .bot {
+        text-align: left;
+        color: green;
+        margin: 5px 0;
+        font-size: medium;
+        
+      }
+
+      .chatbot-form {
+        display: flex;
+        padding: 10px;
+        font-size: medium;
+      }
+
+      .chatbot-form input {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: medium;
+        
+      }
+
+      .chatbot-form button {
+        padding: 10px 15px;
+        background-color: #0479f7;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-left: 20;
+        
+        
+      }
+
+      .chatbot-form button:hover {
+        background-color: #2d77c7;
+      }
+
+      .chatbot-close {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.2rem;
+        cursor: pointer;
+      }
+    </style>
+    <section id="chatbot-widget">
+      <!-- Chatbot Başlatma Butonu -->
+      <button id="chatbot-toggle" class="chatbot-toggle">
+        💬 Yardımcı Olalım!
+      </button>
+
+      <!-- Chatbot Mesaj Penceresi -->
+      <div id="chatbot-window" class="chatbot-window">
+        <header class="chatbot-header">
+          <h3>Car Bench Chatbot</h3>
+          <button id="chatbot-close" class="chatbot-close">✖</button>
+        </header>
+        <div id="chatbot-messages" class="chatbot-messages"></div>
+        <form id="chatbot-form" class="chatbot-form">
+          <input
+            type="text"
+            id="chatbot-input"
+            placeholder="Sorunuzu yazın..."
+            required
+          />
+          <button type="submit">Gönder</button>
+        </form>
+      </div>
+    </section>
+
+    <main>
+      <div id="chatbot-window" style="display: none; flex-direction: column">
+        <div id="chatbot-header">
+          <button id="chatbot-close">X</button>
+          <h3>Chatbot</h3>
+        </div>
+        <div
+          id="chatbot-messages"
+          style="flex: 1; overflow-y: auto; padding: 10px"
+        ></div>
+        <form id="chatbot-form">
+          <input
+            type="text"
+            id="chatbot-input"
+            placeholder="Mesaj yazın..."
+            required
+          />
+          <button type="submit">Gönder</button>
+        </form>
+      </div>
+      <button id="chatbot-toggle">Chatbot</button>
+    </main>
+
+    <script>
+      // Chatbot Elemanları
+      const chatbotToggle = document.getElementById("chatbot-toggle");
+      const chatbotWindow = document.getElementById("chatbot-window");
+      const chatbotClose = document.getElementById("chatbot-close");
+      const chatbotForm = document.getElementById("chatbot-form");
+      const chatbotInput = document.getElementById("chatbot-input");
+      const chatbotMessages = document.getElementById("chatbot-messages");
+
+      // Chatbot Aç/Kapat İşlevi
+      chatbotToggle.addEventListener("click", () => {
+        chatbotWindow.style.display = "flex";
+      });
+
+      chatbotClose.addEventListener("click", () => {
+        chatbotWindow.style.display = "none";
+      });
+
+      // API Endpoint Ayarı
+      const apiUrl = "http://localhost:5024/api/chat"; // Backend'deki chat endpoint
+
+      // Form Gönderimi
+      chatbotForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const userMessage = chatbotInput.value;
+        addMessage(userMessage, "user");
+
+        try {
+          const response = await fetch(apiUrl, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ message: userMessage }),
+          });
+
+          const data = await response.json();
+
+          if (response.ok) {
+            addMessage(data.reply, "bot");
+          } else {
+            addMessage(data.error || "Bir hata oluştu.", "bot");
+          }
+        } catch (error) {
+          console.error("Chat hata:", error);
+          addMessage("Sunucuya bağlanırken bir hata oluştu.", "bot");
+        }
+
+        chatbotInput.value = "";
+      });
+
+      // Mesaj Ekleme Fonksiyonu
+      function addMessage(message, sender) {
+        const messageDiv = document.createElement("div");
+        messageDiv.className = sender;
+        messageDiv.textContent = message;
+        chatbotMessages.appendChild(messageDiv);
+        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+      }
+    </script>
+  </body>
+</html>

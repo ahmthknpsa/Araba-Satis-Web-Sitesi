@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Giriş Yap</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: url('images/mavi.webp') no-repeat center center fixed;
+      background-size: cover;
+      flex-direction: column;
+    }
+
+    .home-link {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 1rem;
+    }
+
+    .home-link a {
+      color: #007BFF;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .home-link a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      display: flex;
+      width: 60%;
+      max-width: 900px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      margin-top: 80px;
+    }
+
+    .form-container {
+      flex: 1;
+      padding: 40px;
+      background: rgba(255, 255, 255, 0.9);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .form-container h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+      color: #333;
+    }
+
+    .form-container form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    input, button {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+
+    input:focus {
+      border-color: #007BFF;
+      outline: none;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+
+    button {
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .error {
+      color: red;
+      font-size: 0.9rem;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .info {
+      margin-top: 20px;
+      font-size: 0.9rem;
+      text-align: center;
+      color: #555;
+    }
+
+    .info a {
+      color: #007BFF;
+      text-decoration: none;
+    }
+
+    .info a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="home-link">
+    <a href="index.html">Anasayfaya Dön</a>
+  </div>
+  <div class="container">
+    <div class="form-container">
+      <h1>Giriş Yap</h1>
+      <form id="loginForm">
+        <input type="email" id="email" name="email" placeholder="E-Posta" required>
+        <input type="password" id="password" name="password" placeholder="Şifre" required>
+        <div class="error" id="errorMessage"></div>
+        <button type="submit">Giriş Yap</button>
+      </form>
+      <div class="info">
+        Henüz bir hesabınız yok mu? <a href="register.html">Kayıt Ol</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const errorMessage = document.getElementById("errorMessage");
+
+      if (!email || !password) {
+        errorMessage.textContent = "Tüm alanlar doldurulmalıdır!";
+        return;
+      }
+
+      errorMessage.textContent = "";
+
+      try {
+        const response = await fetch("http://localhost:5024/api/auth/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password }),
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          alert("Giriş başarılı!");
+          localStorage.setItem("userToken", result.token);
+          window.location.href = "index.html";
+        } else {
+          errorMessage.textContent = result.error || "Bir hata oluştu.";
+        }
+      } catch (error) {
+        console.error("Giriş hatası:", error);
+        errorMessage.textContent = "Bir hata oluştu. Lütfen tekrar deneyin.";
+      }
+    });
+  </script>
+</body>
+</html>

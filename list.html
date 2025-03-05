@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CarBench - Araç Listeleme ve Mesajlaşma</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        font-family: "Roboto", sans-serif;
+        background-color: #f9f9f9;
+      }
+
+      /* Navbar */
+      nav {
+        background: linear-gradient(45deg, #5f5f5e, #000000);
+        padding: 15px 0;
+        color: white;
+        display: flex;
+        justify-content: space-between; /* Sağ ve sola hizalama */
+        align-items: center;
+      }
+
+      nav .navbar-left {
+        margin-left: 20px;
+      }
+
+      nav .navbar-right {
+        margin-right: 20px;
+      }
+
+      .sidebar .button-list {
+        list-style: none; /* Liste noktalarını kaldır */
+        padding: 0;
+        margin: 0;
+      }
+
+      .sidebar .button-list li {
+        margin-bottom: 15px; /* Butonlar arasında boşluk */
+      }
+
+      .sidebar .button-list .btn {
+        display: inline-block;
+        text-decoration: none; /* Alt çizgiyi kaldırır */
+        background: linear-gradient(
+          135deg,
+          #df4e15,
+          #ffd200
+        ); /* Altın-sarı gradient arka plan */
+        color: white; /* Yazı rengi beyaz */
+        padding: 12px 20px; /* İçerik dolgusu */
+        border: none; /* Kenarlık kaldırıldı */
+        border-radius: 12px; /* Yuvarlak kenarlar */
+        font-size: 16px; /* Yazı boyutu */
+        font-weight: bold; /* Kalın yazı */
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); /* Hafif yazı gölgesi */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Hafif gölge efekti */
+        transition: all 0.3s ease; /* Yumuşak geçiş efekti */
+        position: relative; /* Hover efektleri için konumlandırma */
+        overflow: hidden; /* Taşan içeriği gizle */
+      }
+
+      .sidebar .button-list .btn::before {
+        content: ""; /* Ek görsel içerik */
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.3); /* Şeffaf beyaz ışık efekti */
+        transform: translateX(-100%); /* Başlangıçta görünmez */
+        transition: transform 0.4s ease; /* Yumuşak geçiş efekti */
+      }
+
+      .sidebar .button-list .btn:hover::before {
+        transform: translateX(100%); /* Hoverda ışık efekti hareket eder */
+      }
+
+      .sidebar .button-list .btn:hover {
+        background: linear-gradient(
+          135deg,
+          #e6e200,
+          #aca32e
+        ); /* Hoverda renk geçişi tersine döner */
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Daha belirgin gölge efekti */
+        transform: translateY(-2px); /* Hafif yukarı kaldırma efekti */
+      }
+
+      nav a {
+        color: white;
+        margin: 0 15px;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      nav a:hover {
+        color: #45a049;
+      }
+
+      .container {
+        display: grid;
+        grid-template-columns: 1fr 3fr 1fr;
+        gap: 20px;
+        max-width: 1200px;
+        margin: auto;
+        padding: 20px;
+      }
+
+      .sidebar,
+      .main,
+      .extra {
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 20px;
+        padding: 20px 0;
+        background-color: #4caf50;
+        color: white;
+        font-size: 2rem;
+        font-weight: bold;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .main h1 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+
+      .filters select,
+      .filters input {
+        padding: 8px;
+        font-size: 0.9rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
+
+      .filters button {
+        background-color: #4caf50;
+        color: #fff;
+        padding: 8px 15px;
+        font-size: 0.9rem;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+
+      .filters button:hover {
+        background-color: #45a049;
+      }
+
+      .car-list {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .car-card {
+        display: flex;
+        align-items: flex-start;
+        gap: 15px;
+        background: #fff;
+        border-radius: 8px;
+        padding: 15px;
+        border: 1px solid #ddd;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        transition: transform 0.2s ease;
+        cursor: pointer;
+      }
+
+      .car-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .car-image {
+        width: 250px; /* Resmin genişliği */
+        height: 150px; /* Resmin yüksekliği */
+        object-fit: cover;
+        border-radius: 4px;
+      }
+
+      .car-info {
+        flex: 1;
+        width: 100%;
+      }
+
+      .car-title {
+        font-size: 1.4rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #333;
+      }
+
+      .car-details {
+        font-size: 0.9rem;
+        color: #666;
+        margin-bottom: 8px;
+      }
+
+      .car-price {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #4caf50;
+        margin-top: 10px;
+      }
+
+      .btn-detail {
+        margin-top: 15px;
+        padding: 10px 20px;
+        background-color: #774e4e;
+        color: rgb(255, 255, 255);
+        border: none;
+        border-radius: 4px;
+        text-decoration: none;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+
+      .btn-detail:hover {
+        background-color: #45a049;
+      }
+
+      /* Sidebar sağ ve solda kalacak şekilde */
+      .sidebar {
+        order: 1; /* Sol panel sağda */
+      }
+
+      .extra {
+        order: 3; /* Sağ panel en sağda kalacak */
+      }
+
+      .main {
+        order: 2; /* Ana içerik ortada */
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          grid-template-columns: 1fr; /* Mobilde tek sütun */
+        }
+      }
+      .filter-container {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+
+      .filter-container input,
+      .filter-container select,
+      .filter-container button {
+        padding: 10px;
+        font-size: 1rem;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+
+      .filter-container button {
+        background-color: #4caf50;
+        color: white;
+        cursor: pointer;
+      }
+
+      .filter-container button:hover {
+        background-color: #45a049;
+      }
+
+      .footer {
+        margin-top: 30px;
+        text-align: center;
+        padding: 20px;
+        background-color: #f1f1f1;
+        border-top: 1px solid #ddd;
+      }
+
+      .footer .search {
+        margin-bottom: 20px;
+      }
+
+      .footer .search-input {
+        padding: 10px;
+        font-size: 1rem;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        width: 200px;
+      }
+
+      .footer .btn {
+        padding: 10px 15px;
+        font-size: 1rem;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .footer .btn:hover {
+        background-color: #45a049;
+      }
+
+      .footer .share a {
+        margin: 0 10px;
+        font-size: 1.5rem;
+        color: #666;
+        text-decoration: none;
+      }
+
+      .footer .share a:hover {
+        color: #e84242;
+      }
+
+      .footer .credit {
+        font-size: 0.9rem;
+        color: #666;
+        margin-top: 10px;
+      }
+
+      .extra ul {
+        list-style: none; /* Liste noktalarını kaldır */
+        padding: 0;
+        margin: 0;
+      }
+
+      .extra ul li {
+        margin-bottom: 20px; /* Butonlar arasında boşluk */
+      }
+
+      .extra ul .btn {
+        display: inline-block;
+        text-decoration: none; /* Alt çizgiyi kaldırır */
+        background: linear-gradient(
+          135deg,
+          #df4e15,
+          #ffd200
+        ); /* Turuncu-sarı geçişli arka plan */
+        color: white; /* Yazı rengi beyaz */
+        padding: 12px 24px; /* İçerik dolgusu */
+        border: none; /* Kenarlık yok */
+        border-radius: 12px; /* Yuvarlak kenarlar */
+        font-size: 16px; /* Yazı boyutu */
+        font-weight: bold; /* Kalın yazı */
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); /* Hafif yazı gölgesi */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06); /* Hafif gölgeler */
+        transition: all 0.3s ease; /* Hover animasyonu */
+        position: relative; /* Işık efekti için konumlandırma */
+        overflow: hidden; /* Taşan içeriği gizle */
+      }
+
+      .extra ul .btn::before {
+        content: ""; /* Ek görsel içerik */
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.2); /* Şeffaf beyaz ışık efekti */
+        transform: translateX(-100%); /* Başlangıçta görünmez */
+        transition: transform 0.4s ease; /* Hareket animasyonu */
+      }
+
+      .extra ul .btn:hover::before {
+        transform: translateX(100%); /* Hoverda ışık efekti hareket eder */
+      }
+
+      .extra ul .btn:hover {
+        background: linear-gradient(
+          135deg,
+          #ffd200,
+          #f7971e
+        ); /* Hoverda renk geçişi tersine döner */
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 3px 6px rgba(0, 0, 0, 0.1); /* Daha belirgin gölge */
+      }
+
+      .extra ul .btn span {
+        display: inline-block;
+        margin-right: 8px; /* Yazı ve ikon arasında boşluk */
+      }
+
+      .extra ul .btn span.icon {
+        font-size: 18px; /* İkon boyutu */
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav>
+      <div class="navbar-left">
+        <a href="index.html" style="text-decoration: none">
+          <span
+            style="font-size: 1.8rem; font-weight: bold; cursor: pointer"
+            class="carbench"
+          >
+            CarBench
+          </span>
+        </a>
+
+        <style>
+          /* Varsayılan Stil */
+          .carbench {
+            color: white; /* Varsayılan yazı rengi beyaz */
+            transition: color 0.3s ease; /* Renk geçişi için animasyon */
+          }
+
+          /* İmleç Üzerine Geldiğinde */
+          .carbench:hover {
+            color: black; /* Hover sırasında siyah renk */
+          }
+        </style>
+      </div>
+      <div class="navbar-right">
+        <a href="index.html">Ana Sayfa</a>
+        <!-- Ana Sayfa sayfasına yönlendir -->
+
+        <!-- Mesajlar Sayfası -->
+        <a href="iletişim.html">İletişim</a>
+        <a href="ilanver.html">İlan Ver</a>
+        <!-- İletişim sayfasına yönlendir -->
+        <a href="hakkında.html">Hakkımızda</a>
+        <!-- Hakkımızda sayfasına yönlendir -->
+      </div>
+    </nav>
+
+    <div class="container">
+      <!-- Sol Kenar (Sidebar) -->
+      <div class="sidebar">
+        <h3>Filtreleme</h3>
+        <ul class="button-list">
+          <li><a href="Frontends/modelfiltering/coupe.html" class="btn">Coupe Araçlar</a></li>
+          <li><a href="Frontends/modelfiltering/sedan.html" class="btn">Sedan Araçlar</a></li>
+          <li>
+            <a href="Frontends/modelfiltering/hatchback.html" class="btn">Hatchback Araçlar</a>
+          </li>
+          <li>
+            <a href="Frontends/modelfiltering/Roadster.html" class="btn">Roadster Araçlar</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Ana İçerik -->
+      <div class="main">
+        <h1>Satıştaki Araçlar</h1>
+
+        <div id="car-list" class="car-list"></div>
+      </div>
+
+      <!-- Sağ Kenar -->
+      <div class="extra">
+        <h3>Öne Çıkanlar</h3>
+        <ul>
+          <li><a href="blogs.html" class="btn">2024 Model Araçlarr</a></li>
+          <li><a href="blogs.html" class="btn">En Çok Satanlar</a></li>
+          <li><a href="blogs.html" class="btn">Yeni Araçlar</a></li>
+        </ul>
+        <h3>Faydalı Bilgiler</h3>
+        <ul>
+          <li><a href="Aracrehber.html" class="btn">Araç Alım Rehberi</a></li>
+          <li><a href="sigorta.html" class="btn">Sigorta Bilgileri</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <section class="footer">
+      <div class="search">
+        <input type="text" class="search-input" placeholder="Search" />
+        <button class="btn btn-primary">search</button>
+      </div>
+      <div class="share">
+        <a
+          href="https://www.facebook.com"
+          class="fab fa-facebook"
+          target="_blank"
+          rel="noopener noreferrer"
+        ></a>
+        <a
+          href="https://www.twitter.com"
+          class="fab fa-twitter"
+          target="_blank"
+          rel="noopener noreferrer"
+        ></a>
+        <a
+          href="https://www.instagram.com/carbench58/profilecard/?igsh=MTRzOGlqamVscTdzeg=="
+          class="fab fa-instagram"
+          target="_blank"
+          rel="noopener noreferrer"
+        ></a>
+        <a
+          href="https://www.linkedin.com"
+          class="fab fa-linkedin"
+          target="_blank"
+          rel="noopener noreferrer"
+        ></a>
+        <a
+          href="https://www.pinterest.com"
+          class="fab fa-pinterest"
+          target="_blank"
+          rel="noopener noreferrer"
+        ></a>
+      </div>
+
+      <div class="credit">
+        <span>Car Bench</span>
+      </div>
+    </section>
+
+    <div class="filter-container">
+      <input type="text" id="search-brand" placeholder="Marka" />
+      <input type="number" id="min-price" placeholder="Min Fiyat" />
+      <input type="number" id="max-price" placeholder="Max Fiyat" />
+      <input type="number" id="search-year" placeholder="Yıl" />
+      <button id="filter-btn">Filtrele</button>
+    </div>
+
+    <div id="car-list" class="car-list"></div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", async function () {
+        const carList = document.getElementById("car-list");
+        const filterBtn = document.getElementById("filter-btn");
+
+        async function fetchCars(filters = {}) {
+          try {
+            // Filtre parametrelerini query string'e çevir
+            const query = new URLSearchParams(filters).toString();
+            const response = await fetch(
+              `http://localhost:5024/api/cars?${query}`
+            );
+            const data = await response.json();
+
+            // Araç listesi temizle
+            carList.innerHTML = "";
+
+            // Eğer veri yoksa mesaj göster
+            if (!data.data || data.data.length === 0) {
+              carList.innerHTML = "<p>Hiç araç bulunamadı.</p>";
+              return;
+            }
+
+            // Veriyi işleyerek araçları listele
+            data.data.forEach((car) => {
+              const carCard = `
+                <div class="car-card">
+                  <img src="${
+                    car["Resim URL"] || "images/default-car.jpg"
+                  }" alt="${car["Ürün Adı"]}" class="car-image">
+                  <div class="car-info">
+                    <h2 class="car-title">${
+                      car["Ürün Adı"] || "Bilinmiyor"
+                    }</h2>
+                    <p class="car-details"><strong>Fiyat:</strong> ${
+                      car["Fiyat"] || "Bilinmiyor"
+                    } TL</p>
+                    <p class="car-details"><strong>Marka:</strong> ${
+                      car["Marka"] || "Bilinmiyor"
+                    }</p>
+                    <p class="car-details"><strong>Yıl:</strong> ${
+                      car["Yıl"] || "Bilinmiyor"
+                    }</p>
+                    <p class="car-details"><strong>Kilometre:</strong> ${
+                      car["Kilometre"] || "Bilinmiyor"
+                    }</p>
+                    <p class="car-details"><strong>Yakıt Tipi:</strong> ${
+                      car["Yakıt Tipi"] || "Bilinmiyor"
+                    }</p>
+                    <p class="car-details"><strong>Vites Tipi:</strong> ${
+                      car["Vites Tipi"] || "Bilinmiyor"
+                    }</p>
+                    <button class="btn-detail" data-id="${
+                      car._id
+                    }">Detayları Gör</button>
+                  </div>
+                </div>`;
+              carList.innerHTML += carCard;
+            });
+
+            // Detay butonlarına olay ekle
+            document.querySelectorAll(".btn-detail").forEach((button) => {
+              button.addEventListener("click", function () {
+                const carId = this.getAttribute("data-id");
+                localStorage.setItem("selectedCarId", carId);
+                window.location.href = "detail.html";
+              });
+            });
+          } catch (error) {
+            console.error("Araç verileri alınırken hata oluştu:", error);
+            carList.innerHTML =
+              "<p>Veri alınırken bir sorun oluştu. Lütfen tekrar deneyin.</p>";
+          }
+        }
+
+        // Filtreleme butonuna tıklama olayı
+        filterBtn.addEventListener("click", () => {
+          const brand = document.getElementById("search-brand").value.trim();
+          const minPrice = document.getElementById("min-price").value.trim();
+          const maxPrice = document.getElementById("max-price").value.trim();
+          const year = document.getElementById("search-year").value.trim();
+
+          const filters = {
+            marka: brand || undefined,
+            fiyatMin: minPrice || undefined,
+            fiyatMax: maxPrice || undefined,
+            yil: year || undefined,
+          };
+
+          console.log("Filtreler:", filters);
+          fetchCars(filters); // Filtreler ile araçları getir
+        });
+
+        // Sayfa yüklendiğinde tüm araçları listele
+        fetchCars();
+      });
+    </script>
+  </body>
+</html>

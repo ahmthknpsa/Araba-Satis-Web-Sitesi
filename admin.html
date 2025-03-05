@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Paneli</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f4f8;
+        margin: 0;
+        padding: 0;
+      }
+      header {
+        background-color: #1a73e8;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+      }
+      main {
+        max-width: 1200px;
+        margin: 20px auto;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        border-radius: 10px;
+        overflow: hidden;
+      }
+      th,
+      td {
+        padding: 15px;
+        border: 1px solid #ddd;
+        text-align: left;
+      }
+      th {
+        background-color: #1a73e8;
+        color: white;
+      }
+      td {
+        background-color: #f9f9f9;
+      }
+      button {
+        padding: 8px 12px;
+        margin: 0 5px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+      }
+      .approve {
+        background-color: #4caf50;
+        color: white;
+        transition: background-color 0.3s;
+      }
+      .reject {
+        background-color: #f44336;
+        color: white;
+        transition: background-color 0.3s;
+      }
+      .approve:hover {
+        background-color: #45a049;
+      }
+      .reject:hover {
+        background-color: #d32f2f;
+      }
+      .loading {
+        text-align: center;
+        margin-top: 50px;
+        font-size: 18px;
+        color: #555;
+      }
+    </style>
+  </head>
+  <body>
+    <header>Admin Paneli</header>
+    <main>
+      <div class="loading" id="loading">Bekleyen ilanlar yükleniyor...</div>
+      <table id="carsTable" style="display: none">
+        <thead>
+          <tr>
+            <th>Ürün Adı</th>
+            <th>Marka</th>
+            <th>Fiyat</th>
+            <th>Durum</th>
+          </tr>
+        </thead>
+        <tbody id="pendingCarsTable">
+          <!-- Bekleyen ilanlar burada listelenecek -->
+        </tbody>
+      </table>
+    </main>
+
+    <script>
+      async function fetchPendingCars() {
+        try {
+          const token = localStorage.getItem("adminToken");
+          if (!token) {
+            alert("Yetkilendirme hatası. Lütfen tekrar giriş yapın.");
+            window.location.href = "adminLogin.html";
+            return;
+          }
+
+          const response = await fetch("http://localhost:5024/api/admin/pending", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          });
+
+          const result = await response.json();
+
+          if (response.ok) {
+            const tableBody = document.getElementById("pendingCarsTable");
+            const loadingDiv = document.getElementById("loading");
+            const carsTable = document.getElementById("carsTable");
+
+            tableBody.innerHTML = "";
+
+            if (result.data.length > 0) {
+              loadingDiv.style.display = "none";
+              carsTable.style.display = "table";
+
+              result.data.forEach((car) => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                  <td>${car.urunAdi}</td>
+                  <td>${car.marka}</td>
+                  <td>${car.fiyat}</td>
+                  <td>
+                    <button class="approve" onclick="approveCar('${car._id}')">Onayla</button>
+                    <button class="reject" onclick="rejectCar('${car._id}')">Reddet</button>
+                  </td>
+                `;
+                tableBody.appendChild(row);
+              });
+            } else {
+              loadingDiv.textContent = "Bekleyen ilan bulunamadı.";
+            }
+          } else {
+            const error = await response.json();
+            alert("Bekleyen ilanlar alınırken bir hata oluştu: " + error.message);
+          }
+        } catch (error) {
+          console.error("Bekleyen ilanlar alınırken hata:", error);
+          alert("Bir hata oluştu. Lütfen tekrar deneyin.");
+        }
+      }
+
+      async function approveCar(carId) {
+        try {
+          const response = await fetch(
+            `http://localhost:5024/api/admin/approve/${carId}`,
+            {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
+              },
+            }
+          );
+
+          if (response.ok) {
+            alert("İlan başarıyla onaylandı.");
+            fetchPendingCars();
+          } else {
+            const error = await response.json();
+            alert("İlan onaylanırken bir hata oluştu: " + error.message);
+          }
+        } catch (error) {
+          console.error("İlan onaylanırken hata:", error);
+          alert("Bir hata oluştu. Lütfen tekrar deneyin.");
+        }
+      }
+
+      async function rejectCar(carId) {
+        try {
+          const response = await fetch(
+            `http://localhost:5024/api/admin/reject/${carId}`,
+            {
+              method: "DELETE",
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
+              },
+            }
+          );
+
+          if (response.ok) {
+            alert("İlan başarıyla reddedildi.");
+            fetchPendingCars();
+          } else {
+            const error = await response.json();
+            alert("İlan reddedilirken bir hata oluştu: " + error.message);
+          }
+        } catch (error) {
+          console.error("İlan reddedilirken hata:", error);
+          alert("Bir hata oluştu. Lütfen tekrar deneyin.");
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", fetchPendingCars);
+    </script>
+  </body>
+</html>

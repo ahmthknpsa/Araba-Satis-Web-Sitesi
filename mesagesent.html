@@ -1,0 +1,244 @@
+<!-- messages.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mesajlar - CarBench</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <style>
+      /* Genel stil */
+      body {
+        font-family: "Roboto", sans-serif;
+        margin: 0;
+        background-color: #f9f9f9;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      .message-container {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .message-header {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 15px;
+      }
+
+      .message-box {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        max-height: 400px;
+        overflow-y: auto;
+        padding-right: 10px;
+      }
+
+      .message-item {
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+        background-color: #f1f1f1;
+        border-radius: 8px;
+        max-width: 70%;
+      }
+
+      .message-item.sent {
+        align-self: flex-end;
+        background-color: #c6f7c3;
+      }
+
+      .message-item.received {
+        align-self: flex-start;
+        background-color: #e7e7e7;
+      }
+
+      .message-item p {
+        margin: 5px 0;
+      }
+
+      .message-input-container {
+        display: flex;
+        gap: 10px;
+        margin-top: 20px;
+      }
+
+      .message-input-container textarea {
+        width: 100%;
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        font-size: 1rem;
+        resize: none;
+      }
+
+      .send-btn {
+        padding: 10px 20px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: background 0.3s ease;
+      }
+
+      .send-btn:hover {
+        background-color: #45a049;
+      }
+
+      .btn-back {
+        padding: 12px 20px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-align: center;
+        font-size: 1rem;
+        transition: background 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+        margin-top: 20px;
+      }
+
+      .btn-back:hover {
+        background-color: #45a049;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="message-container">
+        <div class="message-header">Mesajlaşma</div>
+
+        <!-- Mesajlar listesi -->
+        <div class="message-box" id="message-box">
+          <!-- Mesajlar buraya eklenecek -->
+        </div>
+
+        <!-- Mesaj yazma kısmı -->
+        <div class="message-input-container">
+          <textarea
+            id="message-input"
+            placeholder="Mesajınızı yazın..."
+            rows="3"
+            required
+          ></textarea>
+          <button onclick="checkAuthBeforeMessaging()">Mesaj Gönder</button>
+        </div>
+
+        <a href="javascript:history.back()" class="btn-back">Geri Dön</a>
+      </div>
+    </div>
+
+    <script>
+      // Örnek araç ID'leri, her araç için mesajlar tutulacak
+      const carMessages = {
+        "car-123": [
+          {
+            content:
+              "Merhaba, bu araç hakkında daha fazla bilgi almak istiyorum. Hala satışta mı?",
+            sender: "Satıcı",
+            date: "24 Aralık 2024",
+          },
+          {
+            content: "Fiyatı nedir?",
+            sender: "Satıcı",
+            date: "23 Aralık 2024",
+          },
+        ],
+        "car-456": [
+          {
+            content: "Bu araç hakkında daha fazla detay verir misiniz?",
+            sender: "Satıcı",
+            date: "22 Aralık 2024",
+          },
+        ],
+      };
+
+      const messageBox = document.getElementById("message-box");
+      const sendButton = document.getElementById("send-btn");
+      const messageInput = document.getElementById("message-input");
+
+      // Araba ID'si (bu dinamik olarak seçilecek)
+      const selectedCarId = localStorage.getItem("selectedCarId") || "car-123"; // Bu kısmı dinamik olarak güncelleyebilirsiniz
+
+      // Mesajları eklemek için fonksiyon
+      function displayMessages(carId) {
+        const messages = carMessages[carId] || [];
+        messageBox.innerHTML = "";
+        messages.forEach((msg) => {
+          const messageDiv = document.createElement("div");
+          messageDiv.classList.add(
+            "message-item",
+            msg.sender === "Satıcı" ? "received" : "sent"
+          );
+          messageDiv.innerHTML = `
+          <p><strong>${msg.sender}:</strong> ${msg.content}</p>
+          <p><small>${msg.date}</small></p>
+        `;
+          messageBox.appendChild(messageDiv);
+        });
+        // Mesaj kutusunu aşağıya kaydır
+        messageBox.scrollTop = messageBox.scrollHeight;
+      }
+      function checkAuthBeforeMessaging() {
+        const token = localStorage.getItem("userToken");
+        if (!token) {
+          alert("Mesaj göndermek için giriş yapmanız gerekiyor.");
+          window.location.href = "login.html"; // Giriş sayfasına yönlendirme
+        } else {
+          alert("Mesaj gönderme işlemi başlatılıyor...");
+          // Mesaj gönderme kodları buraya eklenecek
+        }
+      }
+
+      // Mesaj gönderme fonksiyonu
+      sendButton.addEventListener("click", () => {
+        const messageText = messageInput.value.trim();
+        if (messageText) {
+          // Yeni mesajı diziye ekle
+          const newMessage = {
+            content: messageText,
+            sender: "Ben",
+            date: new Date().toLocaleString(),
+          };
+          if (!carMessages[selectedCarId]) {
+            carMessages[selectedCarId] = [];
+          }
+          carMessages[selectedCarId].push(newMessage);
+          messageInput.value = ""; // Mesaj kutusunu temizle
+          displayMessages(selectedCarId); // Mesajları tekrar göster
+        }
+      });
+      document.addEventListener("DOMContentLoaded", () => {
+        const token = localStorage.getItem("userToken");
+        if (!token) {
+          alert("Bu sayfaya erişmek için giriş yapmanız gerekiyor.");
+          window.location.href = "login.html";
+        }
+      });
+
+      // Başlangıçta mesajları görüntüle
+      displayMessages(selectedCarId);
+    </script>
+  </body>
+</html>

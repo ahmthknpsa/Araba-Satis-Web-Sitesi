@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Carbench Sigorta ve Kasko</title>
+    <style>
+      /* Genel Ayarlar */
+      body {
+        font-family: "Arial", sans-serif;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(to bottom, #f3f4f6, #ffffff);
+        color: #333;
+      }
+
+      /* Header */
+      .header {
+        background: linear-gradient(to right, #5543a7, #1c5ca5);
+        color: white;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      .header h1 {
+        margin: 0;
+        font-size: 2.8rem;
+        font-weight: bold;
+      }
+
+      .nav ul {
+        list-style: none;
+        padding: 0;
+        margin: 10px 0 0;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+      }
+
+      .nav ul li {
+        display: inline;
+      }
+
+      .nav ul li a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        padding: 8px 15px;
+        border-radius: 5px;
+        transition: background 0.3s, color 0.3s;
+      }
+
+      .nav ul li a:hover {
+        background: #ffc107;
+        color: #333;
+      }
+
+      /* Ana Konteyner */
+      .container {
+        max-width: 1200px;
+        margin: 20px auto;
+        padding: 20px;
+        background: white;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+      }
+
+      /* Bölüm Başlıkları */
+      .info-section h2,
+      .contact-section h2 {
+        color: #2c3e50;
+        margin-bottom: 15px;
+        font-size: 2rem;
+        text-transform: uppercase;
+        border-bottom: 2px solid #e84242;
+        display: inline-block;
+        padding-bottom: 5px;
+      }
+
+      .info-section p,
+      .contact-section p {
+        font-size: 1.1rem;
+        line-height: 1.8;
+      }
+
+      .info-section ul {
+        list-style: disc;
+        padding-left: 40px;
+        line-height: 1.8;
+      }
+
+      /* Tablo Stil */
+      .table-container {
+        margin-top: 20px;
+        overflow-x: auto;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+
+      table th, table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+      }
+
+      table th {
+        background-color: #e84242;
+        color: white;
+        text-transform: uppercase;
+      }
+
+      table tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
+
+      table tr:hover {
+        background-color: #f1f1f1;
+      }
+
+      /* İletişim Formu */
+      .contact-form {
+        margin-top: 20px;
+      }
+
+      .contact-form label {
+        display: block;
+        margin: 10px 0 5px;
+        font-weight: bold;
+      }
+
+      .contact-form input,
+      .contact-form textarea {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        font-size: 1rem;
+      }
+
+      .contact-form input:focus,
+      .contact-form textarea:focus {
+        border-color: #e84242;
+        outline: none;
+      }
+
+      .contact-form button {
+        background: linear-gradient(to right, #e84242, #ff5757);
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background 0.3s, transform 0.2s;
+      }
+
+      .contact-form button:hover {
+        background: #256db1;
+        transform: scale(1.05);
+      }
+
+      /* Footer */
+      .footer {
+        text-align: center;
+        padding: 15px;
+        background: #2c3e50;
+        color: white;
+        font-size: 0.9rem;
+        margin-top: 20px;
+        border-top: 3px solid #e84242;
+      }
+
+      .footer p {
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <h1>Carbench Sigorta ve Kasko</h1>
+      <nav class="nav">
+        <ul>
+          <li><a href="hakkında.html">Hakkında</a></li>
+          <li><a href="Aracrehber.html">Araç Alım Rehberi</a></li>
+          <li><a href="iletişim.html">İletişim</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Ana İçerik -->
+    <main class="container">
+      <!-- Sigorta Hakkında -->
+      <section id="about" class="info-section">
+        <h2>Sigorta Nedir?</h2>
+        <p>
+          Sigorta, bireylerin ve kurumların karşılaşabileceği risklere karşı
+          finansal güvence sağlayan bir hizmettir. Araç sigortası, aracınızı ve
+          sizi korumak için en iyi yoldur.
+        </p>
+      </section>
+
+      <!-- Hizmetler -->
+      <section id="services" class="info-section">
+        <h2>Kasko ve Sigorta Hizmetlerimiz</h2>
+        <ul>
+          <li>Kapsamlı araç sigortası</li>
+          <li>Kasko sigortası</li>
+          <li>Trafik sigortası</li>
+          <li>Doğal afet teminatı</li>
+          <li>Hırsızlık ve yangın koruması</li>
+        </ul>
+      </section>
+
+      <!-- Araç Kasko Sigortası -->
+      <section id="insurance" class="info-section">
+        <h2>Araç Kasko Sigortası</h2>
+        <h3>Araç Kasko Sigortası Nedir?</h3>
+        <p>
+          Kasko, hasar ve kaza durumlarında aracında ortaya çıkan zarar masraflarını karşılar. Bu sayede yüksek hasar masraflarına karşı bütçeni korur. Kasko sigortan aşağıdaki durumlarda devreye girer:
+        </p>
+        <ul>
+          <li>Çarpma veya çarpılma</li>
+          <li>Yanma</li>
+          <li>Çalınma</li>
+          <li>Kişilerden Kaynaklanan Hasarlar: Eğer kasko sigortası yaptırırsan kötü niyetli kişilerden kaynaklanan hasarlar teminat kapsamında yer alır. Aynı şekilde fiil ehliyetine sahip olmayan kişilerin aracında yol açacağı zararlar da bu teminat kapsamındadır.</li>
+        </ul>
+        <h3>Online Kasko Sigortası Nasıl Alınır?</h3>
+        <p>
+          Kasko sigortanı internet üzerinden hızlı bir şekilde satın alabilirsin. Online kasko teklifi almak için T.C. kimlik ve cep telefonu numaranı yukarıda bulunan teklif alma aracına girmen yeterlidir. Sadece 2 dakika içerisinde kasko tekliflerini tek bir ekranda karşılaştırabilirsin.
+        </p>
+        <p>
+          Sigortam.net olarak kasko teklifleri arasından tercih yapmanı daha da kolaylaştırmak için sana özel ürün önerileri sunuyoruz. “En Kapsamlı”, “En Ucuz” ve “Önerilen Teklif” başlıklarıyla senin için öne çıkardığımız kasko ürünlerini inceleyebilirsin.
+        </p>
+        <p>
+          Anlaşmalı sigorta şirketlerinin teklifleri arasından aracını en geniş kapsamla koruma altına almak istiyorsan en geniş teminatlı kaskoyu seçebilir, fiyat benim için tek kriter diyorsan en ucuz kasko önerisini tercih edebilirsin. En uygun fiyata maksimum teminatlara sahip kaskoyu almak için de önerilen teklif seçeneği tam sana göre olacaktır. Sen de ihtiyaçlarına uygun poliçeleri incelemek için online kasko teklifi al, satın alma işlemin tamamlandıktan sonra poliçen e-mail adresine gönderilsin.
+        </p>
+      </section>
+
+      <!-- Araç Kasko Fiyatları Tablosu -->
+      <section id="prices" class="info-section">
+        <h2>Araç Kasko Fiyatları</h2>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Marka</th>
+                <th>Model Yılı</th>
+                <th>Model</th>
+                <th>Hasarsızlık İndirimi</th>
+                <th>Kasko Fiyatı</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>TESLA</td>
+                <td>2024</td>
+                <td>MODEL Y RWD STANDART RANGE</td>
+                <td>0%</td>
+                <td>21.900 TL</td>
+              </tr>
+              <tr>
+                <td>HONDA</td>
+                <td>2024</td>
+                <td>CITY 4D 1.5 EXECUTIVE AT</td>
+                <td>0%</td>
+                <td>10.576 TL</td>
+              </tr>
+              <tr>
+                <td>RENAULT (OYAK)</td>
+                <td>2023</td>
+                <td>CLIO TOUCH 1.0 TCE X-TRONIC 90</td>
+                <td>30%</td>
+                <td>9.558 TL</td>
+              </tr>
+              <tr>
+                <td>OPEL</td>
+                <td>2023</td>
+                <td>CROSSLAND 1.2 130 AT6 ESSENTIAL</td>
+                <td>30%</td>
+                <td>7.621 TL</td>
+              </tr>
+              <tr>
+                <td>TOFAS-FIAT</td>
+                <td>2023</td>
+                <td>EGEA CROSS URBAN 1.4 FIRE 95 E6D</td>
+                <td>40%</td>
+                <td>6.704 TL</td>
+              </tr>
+              <tr>
+                <td>VOLKSWAGEN</td>
+                <td>2023</td>
+                <td>POLO 1.0 TSI 95 DSG LIFE</td>
+                <td>40%</td>
+                <td>9.351 TL</td>
+              </tr>
+              <tr>
+                <td>TOYOTA</td>
+                <td>2022</td>
+                <td>COROLLA 1.5 DREAM MULTIDRIVE S</td>
+                <td>50%</td>
+                <td>8.694 TL</td>
+              </tr>
+              <tr>
+                <td>KIA</td>
+                <td>2022</td>
+                <td>STONIC COOL 1.4 100 OV</td>
+                <td>50%</td>
+                <td>7.506 TL</td>
+              </tr>
+              <tr>
+                <td>HYUNDAI</td>
+                <td>2021</td>
+                <td>BAYON 1.4 MPI STYLE AT</td>
+                <td>60%</td>
+                <td>6.795 TL</td>
+              </tr>
+              <tr>
+                <td>SEAT</td>
+                <td>2021</td>
+                <td>ARONA 1.0 ECOTSI 110 DSG STYLE PLUS</td>
+                <td>60%</td>
+                <td>7.873 TL</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- İletişim -->
+      <section id="contact" class="contact-section">
+        <h2>İletişim</h2>
+        <p>
+          Herhangi bir sorunuz varsa veya teklif almak istiyorsanız, aşağıdaki
+          bilgileri kullanarak bize ulaşabilirsiniz.
+        </p>
+        <div class="contact-info">
+          <p><strong>Adres:</strong> Ankara, Türkiye</p>
+          <p><strong>Telefon:</strong> +90 312 123 45 67</p>
+          <p><strong>Email:</strong> info@carbench.com</p>
+        </div>
+        <form class="contact-form">
+          <label for="name">Adınız:</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Adınızı girin"
+            required
+          />
+
+          <label for="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Email adresinizi girin"
+            required
+          />
+
+          <label for="message">Mesajınız:</label>
+          <textarea
+            id="message"
+            name="message"
+            rows="5"
+            placeholder="Mesajınızı buraya yazın"
+            required
+          ></textarea>
+
+          <button type="submit" class="cta-btn">Gönder</button>
+        </form>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>&copy; 2024 Carbench Sigorta ve Kasko. Tüm hakları saklıdır.</p>
+    </footer>
+  </body>
+</html>

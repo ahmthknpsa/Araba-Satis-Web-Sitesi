@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>İletişim</title>
+    <link rel="stylesheet" href="styles/style.css" />
+  </head>
+  <body>
+    <!--! header section start  -->
+    <header class="header">
+      <a href="#" class="logo">
+        <img src="images/indir.jpeg" alt="logo" />
+      </a>
+      <nav class="navbar">
+        <a href="index.html">Anasayfa</a>
+        <a href="hakkında.html">Hakkında</a>
+        <a href="blogs.html">Blogs</a>
+        <a href="iletişim.html" class="active">İletişim</a>
+        <span id="user-info"></span>
+        
+      </nav>
+
+      <div class="buttons">
+        
+        <button id="menu-btn">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+
+      <div class="search-form">
+        <input
+          type="text"
+          class="search-input"
+          id="search-box"
+          placeholder="search here"
+        />
+        <i class="fas fa-search"></i>
+      </div>
+
+      <div class="cart-items-container">
+        <div class="cart-item">
+          <i class="fas fa-times"></i>
+          <img src="images/menu-1.png" alt="menu" />
+          <div class="content">
+            <h3>cart item 01</h3>
+            <div class="price">$15.99/-</div>
+          </div>
+        </div>
+        <div class="cart-item">
+          <i class="fas fa-times"></i>
+          <img src="images/menu-2.png" alt="menu" />
+          <div class="content">
+            <h3>cart item 02</h3>
+            <div class="price">$15.99/-</div>
+          </div>
+        </div>
+        <div class="cart-item">
+          <i class="fas fa-times"></i>
+          <img src="images/menu-3.png" alt="menu" />
+          <div class="content">
+            <h3>cart item 03</h3>
+            <div class="price">$15.99/-</div>
+          </div>
+        </div>
+        <div class="cart-item">
+          <i class="fas fa-times"></i>
+          <img src="images/menu-4.png" alt="menu" />
+          <div class="content">
+            <h3>cart item 04</h3>
+            <div class="price">$15.99/-</div>
+          </div>
+        </div>
+        <a href="#" class="btn">checkout now</a>
+      </div>
+    </header>
+    <!--! header section end  -->
+
+    <!--! contact section start  -->
+    <section class="contact" id="contact">
+      <h1 class="heading"><span>İLETİŞİM</span></h1>
+      <div class="row">
+        <iframe
+          class="map"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3067.523354158944!2d37.01250527579261!3d39.75035647155447!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x407eab2133a4aed3%3A0x82b032fb218639fc!2sSivas%20Cumhuriyet%20Meydan%C4%B1!5e0!3m2!1str!2str!4v1733990577795!5m2!1str!2str"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+        <form id="contactForm">
+          <h3>BİZİMLE İLETİŞİME GEÇİN</h3>
+          <div class="inputBox">
+            <i class="fas fa-user"></i>
+            <input type="text" id="name" placeholder="İsim" required />
+          </div>
+          <div class="inputBox">
+            <i class="fas fa-envelope"></i>
+            <input type="email" id="email" placeholder="Email" required />
+          </div>
+          <div class="inputBox">
+            <i class="fas fa-phone"></i>
+            <input
+              type="number"
+              id="phone"
+              placeholder="Telefon Numarası"
+              maxlength="11"
+              required
+            />
+          </div>
+          <input type="submit" class="btn" value="İLETİŞİME GEÇ" />
+        </form>
+      </div>
+    </section>
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const contactForm = document.getElementById("contactForm");
+        contactForm.addEventListener("submit", function (e) {
+          e.preventDefault(); // Formun varsayılan gönderim işlemini engelle
+    
+          const name = document.getElementById("name").value;
+          const phone = document.getElementById("phone").value;
+    
+          // Telefon numarasının uzunluğunu kontrol et
+          if (phone.length < 11) {
+            Swal.fire({
+              title: "Hata!",
+              text: "Telefon numarası eksik, lütfen 11 haneli telefon numaranızı giriniz.",
+              icon: "error",
+              confirmButtonText: "Tamam",
+            });
+            return; // İşleme devam etmeyi durdur
+          }
+    
+          // SweetAlert2 ile başarılı bildirim
+          Swal.fire({
+            title: "Başarılı!",
+            text: `Talebinizi aldık, ${name}. Sizinle en kısa sürede iletişime geçilecektir.`,
+            icon: "success",
+            confirmButtonText: "Tamam",
+          });
+        });
+      });
+    </script>
+    
+    <!--! contact section end  -->
+
+    <!--! footer section start  -->
+    <section class="footer">
+  
+      <div class="share">
+        <!-- Sosyal medya bağlantıları -->
+        <a
+          href="https://www.facebook.com"
+          class="fab fa-facebook"
+          target="_blank"
+          rel="noopener noreferrer"
+        ></a>
+        <a
+          href="https://www.twitter.com"
+          class="fab fa-twitter"
+          target="_blank"
+          rel="noopener noreferrer"
+        ></a>
+        <a
+          href="https://www.instagram.com"
+          class="fab fa-instagram"
+          target="_blank"
+          rel="noopener noreferrer"
+        ></a>
+        <a
+          href="https://www.linkedin.com"
+          class="fab fa-linkedin"
+          target="_blank"
+          rel="noopener noreferrer"
+        ></a>
+        <a
+          href="https://www.pinterest.com"
+          class="fab fa-pinterest"
+          target="_blank"
+          rel="noopener noreferrer"
+        ></a>
+      </div>
+
+      <div class="credit">
+         <span>Car Bench</span> 
+      </div>
+    </section>
+    <!--! footer section end  -->
+
+    <script src="js/script.js"></script>
+    <style>
+      #user-info {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: #e06666;
+        padding: 10px;
+        border-radius: 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        margin-right: 5%;
+        margin-top:1% ;
+        font-weight: bold;
+      }
+
+      #username-display {
+        font-weight: bold;
+        margin-right: 10px;
+      }
+
+      a {
+        text-decoration: none;
+        color: #eb0404;
+        margin-right: 15px;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      button {
+        background-color: #dd1e05;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 3px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #b32400;
+      }
+    </style>
+    <div
+      id="user-info"
+      style="
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: #f8f6f6;
+        padding: 10px;
+        border-radius: 5px;
+        display: none;
+      "
+    >
+      <span id="username-display"></span>
+      <a href="#" id="logout-button" style="display: none">Çıkış Yap</a>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const token = localStorage.getItem("userToken");
+        const userLinks = document.getElementById("user-links");
+
+        if (token) {
+          const user = JSON.parse(atob(token.split(".")[1])); // Token'dan kullanıcı verisi alınır
+          userLinks.innerHTML = `
+            Hoş geldiniz, ${user.username}! 
+            <a href="#" id="logout-button" style="margin-left: 10px;">Çıkış Yap</a>
+        `;
+          document
+            .getElementById("logout-button")
+            .addEventListener("click", () => {
+              localStorage.removeItem("userToken"); // Token'ı sil
+              alert("Başarıyla çıkış yapıldı.");
+              window.location.reload(); // Sayfayı yenile
+            });
+        } else {
+          userLinks.innerHTML = `
+            <a href="login.html">Giriş Yap</a> | <a href="register.html">Üye Ol</a>
+        `;
+        }
+      });
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const token = localStorage.getItem("userToken");
+        const userInfo = document.getElementById("user-info");
+
+        if (token) {
+          const user = JSON.parse(atob(token.split(".")[1])); // Token'dan kullanıcı verisi alınır
+          userInfo.innerHTML = `
+            Hoş geldiniz, ${user.username}! 
+            <a href="#" id="logout-button" style="margin-left: 10px; font-weight:bold">Çıkış Yap</a>
+        `;
+          document
+            .getElementById("logout-button")
+            .addEventListener("click", () => {
+              localStorage.removeItem("userToken"); // Token'ı sil
+              alert("Başarıyla çıkış yaptınız.");
+              window.location.reload(); // Sayfayı yenile
+            });
+        } else {
+          userInfo.innerHTML = `
+            <a href="login.html" id="login-button">Giriş Yap</a> | 
+            <a href="register.html" id="register-button">Üye Ol</a>
+        `;
+        }
+      });
+    </script>
+
+
+  </body>
+</html>

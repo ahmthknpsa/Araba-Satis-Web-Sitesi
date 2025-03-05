@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>Car Bench</title>
+    <link rel="stylesheet" href="styles/style.css" />
+  </head>
+  <body>
+    <!--! header section start  -->
+    <header class="header">
+      <a href="#" class="logo">
+        <img src="images/carbench.webp" alt="logo" />
+      </a>
+      <nav class="navbar">
+        <a href="index.html" class="active">Anasayfa</a>
+        <a href="hakkında.html">Hakkında</a>
+
+        <a href="iletişim.html">İletişim</a>
+        <a href="blogs.html">Blogs</a>
+        <a href="ilanver.html">İlan Ver</a>
+        <a href="list.html">Bütün Araçlar</a>
+
+        <span id="user-info"></span>
+      </nav>
+      <a href="ilanver.html" class="bt"></a>
+    </header>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Arial", sans-serif;
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 30px;
+        background-color: #fdfdfd;
+        color: #fff;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .logo img {
+        width: 100px;
+        height: 70px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .navbar {
+        display: flex;
+        gap: 20px;
+      }
+
+      .navbar a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 14px;
+        transition: color 0.3s ease;
+      }
+
+      .navbar a:hover,
+      .navbar a.active {
+        color: #cc3507;
+      }
+
+      .btn {
+        padding: 10px 30px;
+        background-color: #e4390e;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+      }
+
+      .btn:hover {
+        background-color: #d6471c;
+      }
+
+      .menu-btn {
+        display: none;
+      }
+
+      #menu-btn {
+        background: none;
+        border: none;
+        color: #fff;
+        font-size: 20px;
+        cursor: pointer;
+      }
+
+      @media screen and (max-width: 768px) {
+        .navbar {
+          display: none;
+          flex-direction: column;
+          gap: 15px;
+          position: absolute;
+          top: 70px;
+          left: 0;
+          background-color: #222;
+          width: 100%;
+          padding: 15px;
+        }
+
+        .navbar.active {
+          display: flex;
+        }
+
+        .menu-btn {
+          display: block;
+        }
+      }
+    </style>
+
+    <!--! header section end  -->
+
+    <!--! home section start  -->
+    <section class="home" id="home">
+      <div class="content">
+        <h3>Hayalindeki araca bir adım daha yakınsın</h3>
+        <p>En uygun araç için doğru adres! Hadi başlayalım..</p>
+        <a href="list.html" class="btn">Sana Uygun aracı bul</a>
+      </div>
+    </section>
+    <!--! home section end  -->
+
+    <!--! menu section start  -->
+    <section class="menu" id="menu">
+      <h1 class="heading">Araba <span>Modelleri</span></h1>
+      <div class="box-container">
+        <!-- Coupe-->
+        <div class="box" style="padding: 1rem">
+          <div class="box-head">
+            <img
+              src="images/coupe1.jpeg"
+              alt="SUV"
+              class="image-small"
+              style="border-radius: 10%"
+            />
+            <span class="menu-category"></span>
+            <h3>Coupe Araçlar</h3>
+            <div class="price"><span></span></div>
+            <p class="image-caption">
+              Coupe araçlar, sportif ve şık tasarımlarıyla dikkat çeken iki
+              kapılı modellerdir. Daha düşük tavan yapısı ve aerodinamik
+              tasarımıyla yüksek performans için idealdir. Genellikle genç
+              sürücüler ve hız tutkunları tarafından tercih edilir.
+            </p>
+          </div>
+          <div class="box-bottom">
+            <a href="Modelhtml/coupe.html" class="btn">Arabaları gör</a>
+          </div>
+        </div>
+
+        <!-- Sedan -->
+        <div class="box" style="padding: 1rem">
+          <div class="box-head">
+            <img
+              src="images/sedan.png"
+              alt="Sedan"
+              style="border-radius: 10%"
+            />
+            <span class="menu-category"></span>
+            <h3>Sedan Araçlar</h3>
+            <div class="price"><span></span></div>
+            <p class="image-caption">
+              Sedan araçlar, geniş iç hacmi ve konforlu tasarımıyla aileler için
+              ideal bir seçenektir. Genellikle dört kapılı ve büyük bir bagaj
+              kapasitesine sahiptir. Uzun yolculuklarda sunduğu rahatlık ve
+              dengeli sürüş performansı ile öne çıkar.
+            </p>
+          </div>
+          <div class="box-bottom">
+            <a href="Modelhtml/sedan.html" class="btn">Arabaları gör</a>
+            <!-- Sedan sayfasına yönlendir -->
+          </div>
+        </div>
+
+        <!-- Hatchback -->
+        <div class="box" style="padding: 1rem">
+          <div class="box-head">
+            <img
+              src="images/scala.jpg"
+              alt="Hatchback"
+              style="border-radius: 10%"
+            />
+            <span class="menu-category"></span>
+            <h3>Hatchback Araçlar</h3>
+            <div class="price"><span></span></div>
+            <p class="image-caption">
+              Hatchback araçlar, kompakt yapısı ve geniş bagaj kapağı ile şehir
+              içi kullanım için pratiktir. Manevra kabiliyeti ve düşük yakıt
+              tüketimiyle ekonomik bir seçenek sunar. Park kolaylığı sağlaması,
+              dar alanlarda avantaj sağlar.
+            </p>
+          </div>
+          <div class="box-bottom">
+            <a href="Modelhtml/hatchback.html" class="btn">Arabaları gör</a>
+            <!-- Hatchback sayfasına yönlendir -->
+          </div>
+        </div>
+
+        <!-- road -->
+        <div class="box" style="padding: 1rem">
+          <div class="box-head">
+            <img
+              src="images/tesla.jpg"
+              alt="Truck"
+              style="border-radius: 10%"
+            />
+            <span class="menu-category"></span>
+            <h3>Roadster Araçlar</h3>
+            <div class="price"><span></span></div>
+            <p class="image-caption">
+              Roadster araçlar, genellikle üstü açık ve iki kişilik sportif
+              otomobillerdir. Keyifli bir sürüş deneyimi sunarak sürücülere
+              özgürlük hissi verir. Hafif gövdesi ve yüksek motor performansı
+              ile hız ve eğlence odaklıdır.
+            </p>
+          </div>
+          <div class="box-bottom">
+            <a href="Modelhtml/Roadster.html" class="btn">Arabaları gör</a>
+            <!-- Truck sayfasına yönlendir -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!--! menu section end  -->
+
+    <!--! about section start  -->
+    <section class="about">
+      <h1 class="heading">Hakkımızda</h1>
+      <div class="row">
+        <div class="imag">
+          <img src="images/coklu.jpg" alt="Hakkında " />
+        </div>
+        <div class="content">
+          <h3>Hangi araba seni temsil eder?</h3>
+          <p class="custom-text">
+            Car Bench olarak, müşteri memnuniyetini ve teknolojik yenilikleri
+            temel değerlerimiz olarak benimsiyoruz. Yüksek performanslı
+            altyapımız sayesinde güvenilir bir alışveriş ortamı sunarken, yapay
+            zeka destekli analiz araçlarımızla kullanıcılara en iyi teklifleri
+            ve pazar trendlerini sunuyoruz. Bizimle, hayalinizdeki aracı bulmak
+            artık çok daha kolay! Car Bench, otomotiv dünyasını sizin için bir
+            adım öteye taşıyor. Misyonumuz: Araba alım-satım süreçlerinde
+            maksimum memnuniyet ve minimum zahmetle kullanıcılarımıza en iyi
+            deneyimi sunmak. Vizyonumuz: Türkiye'nin ve dünyanın en yenilikçi
+            araç satış platformu olmak. Bizimle tanışmaya hazır mısınız? Car
+            Bench ile geleceğinize yön verin!
+          </p>
+
+          <!-- Daha Fazla Butonu -->
+        </div>
+      </div>
+    </section>
+
+    <script>
+      document
+        .getElementById("more-btn")
+        .addEventListener("click", function () {
+          const body = document.querySelector("body");
+          body.style.transition = "opacity 0.5s ease"; // Geçiş efekti
+          body.style.opacity = 0; // Sayfa kayboluyor
+          setTimeout(() => {
+            window.location.href = "hakkında.html"; // Yönlendirme
+          }, 500); // 0.5 saniye sonra yönlendir
+        });
+    </script>
+
+    <!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Araç Listesi</title>
+        <style>
+          .car-item {
+            border: 1px solid #ddd;
+            margin: 10px;
+            padding: 10px;
+            border-radius: 5px;
+          }
+          form {
+            margin-bottom: 20px;
+          }
+          label {
+            margin-right: 10px;
+          }
+          input {
+            margin-right: 10px;
+            padding: 5px;
+          }
+        </style>
+      </head>
+    </html>
+
+    <!--! footer section start  -->
+    <section class="footer">
+      <div class="share">
+        <!-- Sosyal medya bağlantıları -->
+        <a
+          href="https://www.facebook.com"
+          class="fab fa-facebook"
+          target="_blank"
+          rel="noopener noreferrer"
+        ></a>
+        <a
+          href="https://www.twitter.com"
+          class="fab fa-twitter"
+          target="_blank"
+          rel="noopener noreferrer"
+        ></a>
+        <a
+          href="https://www.instagram.com/carbench58/profilecard/?igsh=MTRzOGlqamVscTdzeg=="
+          class="fab fa-instagram"
+          target="_blank"
+          rel="noopener noreferrer"
+        ></a>
+        <a
+          href="https://www.linkedin.com"
+          class="fab fa-linkedin"
+          target="_blank"
+          rel="noopener noreferrer"
+        ></a>
+        <a
+          href="https://www.pinterest.com"
+          class="fab fa-pinterest"
+          target="_blank"
+          rel="noopener noreferrer"
+        ></a>
+      </div>
+
+      <div class="credit">
+        <span>Car Bench</span>
+      </div>
+    </section>
+
+    <!--! footer section end  -->
+
+    <script src="js/script.js"></script>
+    <style>
+      #user-info {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: #e94e4e;
+        padding: 10px;
+        border-radius: 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        margin-right: 5%;
+        margin-top: 2%;
+        font-weight: bold;
+      }
+
+      #username-display {
+        font-weight: bold;
+        margin-right: 10px;
+      }
+
+      a {
+        text-decoration: none;
+        color: #eb0404;
+        margin-right: 15px;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      button {
+        background-color: #dd1e05;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 3px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #b32400;
+      }
+    </style>
+    <div
+      id="user-info"
+      style="
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: #f8f6f6;
+        padding: 10px;
+        border-radius: 5px;
+        display: none;
+      "
+    >
+      <span id="username-display"></span>
+      <a href="#" id="logout-button" style="display: none">Çıkış Yap</a>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const token = localStorage.getItem("userToken");
+        const userLinks = document.getElementById("user-links");
+
+        if (token) {
+          const user = JSON.parse(atob(token.split(".")[1])); // Token'dan kullanıcı verisi alınır
+          userLinks.innerHTML = `
+            Hoş geldiniz, ${user.username}! 
+            <a href="#" id="logout-button" style="margin-left: 10px;">Çıkış Yap</a>
+        `;
+          document
+            .getElementById("logout-button")
+            .addEventListener("click", () => {
+              localStorage.removeItem("userToken"); // Token'ı sil
+              alert("Başarıyla çıkış yapıldı.");
+              window.location.reload(); // Sayfayı yenile
+            });
+        } else {
+          userLinks.innerHTML = `
+            <a href="login.html">Giriş Yap</a> | <a href="register.html">Üye Ol</a>
+        `;
+        }
+      });
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const token = localStorage.getItem("userToken");
+        const userInfo = document.getElementById("user-info");
+
+        if (token) {
+          const user = JSON.parse(atob(token.split(".")[1])); // Token'dan kullanıcı verisi alınır
+          userInfo.innerHTML = `
+            Hoş geldiniz, ${user.username}! 
+            <a href="#" id="logout-button" style="margin-left: 10px; font-weight:bold">Çıkış Yap</a>
+        `;
+          document
+            .getElementById("logout-button")
+            .addEventListener("click", () => {
+              localStorage.removeItem("userToken"); // Token'ı sil
+              alert("Başarıyla çıkış yaptınız.");
+              window.location.reload(); // Sayfayı yenile
+            });
+        } else {
+          userInfo.innerHTML = `
+            <a href="login.html" id="login-button">Giriş Yap</a> | 
+            <a href="register.html" id="register-button">Üye Ol</a>
+        `;
+        }
+      });
+    </script>
+  </body>
+</html>
